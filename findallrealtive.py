@@ -11,8 +11,8 @@ pages = sitemap_soup.find_all("loc")
 
 
 
-def is_relative(url):
-    return not bool(urlparse.urlparse(url).netloc)
+#def is_relative(url):
+    #return not bool(urllib.urlparse.urlparse(url).netloc)
 
 
 for page in pages:
@@ -24,8 +24,8 @@ for page in pages:
     page_title = soup.title.get_text()
     links = []
 
-    with open(page_title +".csv", 'w', newline='\n') as csvfile:
-        filewriter = csv.writer(csvfile, delimiter=',')
+    with open("rawlink/" +page_title + ".txt", 'w', newline='\n') as txtfile:
+        filewriter = csv.writer(txtfile, delimiter=',')
         filewriter.writerow(['Page', 'URL', 'Achors in body section'])
 
         # for page in pages:
@@ -33,22 +33,23 @@ for page in pages:
         # url = page.get_text()
 
 
-        imagesElements = soup.find_all('img', href=is_relative)
+        imagesElements = soup.find_all('img')
         for img in imagesElements:
-            src = img.get('src')
-            if src is not None:
-                filewriter.writerow([src + "\n"])
+            #src = img.get('src')
+
+            if img is not None:
+                filewriter.writerow([str(img) + "\n"])
 
 
         for div in data:
-            anchors = div.findAll('a')
+          anchors = div.findAll('a')
 
 
-            for a in anchors:
-                anchor = a.get('href')
-
-                if anchor is not None:
-                    #links.append(anchor)
-                    #if anchor.find("www.aliceplatform.com") > -1:
-                    #links.append(anchor)
-                    filewriter.writerow([anchor + "\n"])
+        for a in anchors:
+             #anchor = a.get('href')
+             if a is not None:
+              #links.append(anchor)
+              #if anchor.find("www.aliceplatform.com") > -1:
+              #links.append(anchor)
+              #if is_relative(src):
+              filewriter.writerow([str(a) + "\n"])

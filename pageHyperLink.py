@@ -20,7 +20,7 @@ for page in pages:
     page_title = soup.title.get_text()
     links = []
 
-    with open(page_title +".csv", 'w', newline='\n') as csvfile:
+    with open("pages/" + page_title + ".csv", 'w', newline='\n') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',')
         filewriter.writerow(['Page', 'URL', 'Achors in body section'])
 
